@@ -45,5 +45,42 @@
         <button>Transcribe</button>
     </div>
 
+    <script>
+  const button = document.querySelector("button");
+  const fileInput = document.querySelector("input[type='file']");
+
+  // Create result area
+  const resultBox = document.createElement("div");
+  resultBox.style.marginTop = "20px";
+  resultBox.style.whiteSpace = "pre-wrap";
+  document.querySelector(".box").appendChild(resultBox);
+
+  button.addEventListener("click", async () => {
+    const file = fileInput.files[0];
+
+    if (!file) {
+      alert("Please select an audio file first.");
+      return;
+    }
+
+    resultBox.innerText = "Transcribing... Please wait.";
+
+    const response = await fetch("/api/transcribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/octet-stream",
+      },
+      body: file,
+    });
+
+    const data = await response.json();
+
+    if (data.text) {
+      resultBox.innerText = data.text;
+    } else {
+      resultBox.innerText = "Error: Transcription failed.";
+    }
+  });
+</script>
 </body>
 </html>
