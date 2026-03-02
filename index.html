@@ -40,9 +40,11 @@
     <div class="box">
         <h1>Lecture Transcriber 🎓</h1>
         <p>Upload your lecture audio and convert it to text.</p>
-        <input type="file" accept="audio/*" capture />
+        <input type="file" id="audioFile" accept="audio/*">
         <br><br>
-        <button>Transcribe</button>
+        <button onclick="document.getElementById('audioFile').click()">
+  Transcribe
+</button>
     </div>
 
     <script>
